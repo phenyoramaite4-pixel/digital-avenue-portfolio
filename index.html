@@ -23,6 +23,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:15;display:flex;justify-content:
 .logo{display:flex;align-items:center;gap:10px}
 .logo b{color:var(--amb)}
 .cards.four{grid-template-columns:repeat(4,1fr)}
+.card a{display:inline-block;margin-top:16px;color:var(--amb);font-family:var(--hd);font-weight:700;font-size:.82rem;letter-spacing:.1em;text-decoration:none;border-bottom:1px solid rgba(255,181,71,.4);padding-bottom:3px}
+.card a:hover{border-color:var(--amb)}
 .step{font-family:var(--hd);font-size:2.4rem;font-weight:700;color:transparent;-webkit-text-stroke:1px rgba(255,181,71,.7);line-height:1;margin-bottom:12px}
 .stack{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
 .stack span{padding:9px 16px;border-radius:99px;border:1px solid rgba(91,108,255,.4);background:rgba(12,16,46,.6);font-size:.8rem;letter-spacing:.08em;color:var(--txt)}
@@ -120,6 +122,18 @@ section#services{padding-top:110px}
 
   <div id="projects"></div>
 
+  <section id="options">
+    <div class="in-c" style="width:100%">
+      <p class="eyebrow rv">WEBSITE OPTIONS</p>
+      <h2 class="rv">CHOOSE THE WEBSITE <span>THAT FITS.</span></h2>
+      <div class="cards">
+        <div class="card rv"><em>01</em><h3>One-Page Website</h3><p>All your key information on a single, smooth-scrolling page. Ideal for small businesses, creatives and launches that need to look professional quickly.</p><a href="https://nova-studio-za.netlify.app" target="_blank" rel="noopener">SEE THE DEMO ↗</a></div>
+        <div class="card rv"><em>02</em><h3>Standard Business Website</h3><p>A complete website with several pages, such as Home, About, Services and Contact. The right choice for established businesses that want to build trust and share more detail.</p><a href="https://clearpoint-websites.netlify.app" target="_blank" rel="noopener">SEE THE DEMO ↗</a></div>
+        <div class="card rv"><em>03</em><h3>Custom Built</h3><p>A website designed and programmed from scratch around your business, your brand and your goals, with exactly the features you need. Best for businesses that want something truly unique.</p><a href="#p1">SEE OUR PROJECTS</a></div>
+      </div>
+    </div>
+  </section>
+
   <section id="process">
     <div class="in-c" style="width:100%">
       <p class="eyebrow rv">HOW WE WORK</p>
@@ -180,12 +194,18 @@ const P=[
  b:['Sharp, modern design that builds credibility','Clear structure that is easy to navigate','Mobile-friendly and quick to load']},
 {name:'Developer Portfolio',type:'Portfolio',url:'https://phenyo-animated-portfolio.netlify.app',
  d:'A cinematic, animated portfolio that showcases a developer’s work through scroll-driven storytelling and one-click contact.',
- b:['Scroll-driven animation and bold typography','Projects presented as a story','Email and WhatsApp contact in one tap']}];
+ b:['Scroll-driven animation and bold typography','Projects presented as a story','Email and WhatsApp contact in one tap']},
+{name:'Nova Studio',type:'One-Page Website',tag:'Demo',btn:'VIEW LIVE DEMO',url:'https://nova-studio-za.netlify.app',
+ d:'A sleek, modern one-page website that presents a brand, its services and its contact details in one smooth scroll.',
+ b:['Everything you need on a single page','Quick to load and easy to use on phones','A clear path from first look to enquiry']},
+{name:'Clearpoint Technologies',type:'Business Website',tag:'Demo',btn:'VIEW LIVE DEMO',url:'https://clearpoint-websites.netlify.app',
+ d:'A complete, multi-page business website that shows how a professional online presence is built for a growing company.',
+ b:['Multiple pages with clear navigation','A professional design that builds trust','Built to turn visitors into enquiries']}];
 
 const host=document.getElementById('projects');
 P.forEach((p,i)=>{
  const s=document.createElement('section');s.id='p'+(i+1);s.className='scene '+(i%2?'r':'');
- s.innerHTML=`<div class="panel rv"><div class="num">0${i+1}</div><div class="chips"><span>${p.type}</span><span>Live</span></div><h2>${p.name}</h2><p>${p.d}</p><ul>${p.b.map(x=>`<li>${x}</li>`).join('')}</ul><a class="btn b2" href="${p.url}" target="_blank" rel="noopener">VIEW LIVE PROJECT ↗</a></div>`;
+ s.innerHTML=`<div class="panel rv"><div class="num">0${i+1}</div><div class="chips"><span>${p.type}</span><span>${p.tag||'Live'}</span></div><h2>${p.name}</h2><p>${p.d}</p><ul>${p.b.map(x=>`<li>${x}</li>`).join('')}</ul><a class="btn b2" href="${p.url}" target="_blank" rel="noopener">${p.btn||'VIEW LIVE PROJECT'} ↗</a></div>`;
  host.appendChild(s);
 });
 /* the #projects wrapper holds 4 sections; make it layout-neutral */
@@ -256,7 +276,7 @@ function board(i,p){
   g.fillStyle='#fff';g.font='700 96px "Space Grotesk",sans-serif';
   const words=p.name.split(' ');let line='',y=290;
   words.forEach(wd=>{const tt=line?line+' '+wd:wd;if(g.measureText(tt).width>880&&line){g.fillText(line,64,y);line=wd;y+=104}else line=tt});g.fillText(line,64,y);
-  g.fillStyle='rgba(234,240,255,.7)';g.font='500 32px Inter,sans-serif';g.fillText('Digital Avenue  ·  Live project',64,h-64)});
+  g.fillStyle='rgba(234,240,255,.7)';g.font='500 32px Inter,sans-serif';g.fillText('Digital Avenue  ·  '+(p.tag==='Demo'?'Demo website':'Live project'),64,h-64)});
  const grp=new THREE.Group();
  const pl=new THREE.Mesh(new THREE.PlaneGeometry(8,5),new THREE.MeshBasicMaterial({map:t,fog:false}));grp.add(pl);
  const fr=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(8.2,5.2)),new THREE.LineBasicMaterial({color:amb}));grp.add(fr);
